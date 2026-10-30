@@ -1,15 +1,15 @@
 # VSD RTL Design and Synthesis – Day 1
 
-This repository documents the Day 1 activities of the VSD RTL Design and Synthesis Workshop, covering Icarus Verilog simulation, GTKWave waveform viewing, and an introduction to Yosys synthesis using the SKY130 standard-cell library.
+This repository documents the Day 1 activities of the VSD RTL Design and Synthesis Workshop, covering RTL design concepts, Verilog simulation, waveform analysis, and logic synthesis using Yosys and the SKY130 standard-cell library.
 
 ## Index
 
 1. [Workshop Repository Setup](#1-workshop-repository-setup)
-2. [Introduction to Icarus Verilog](#2-introduction-to-icarus-verilog)
+2. [Introduction to RTL Design, Testbench and Simulation](#2-introduction-to-rtl-design-testbench-and-simulation)
 3. [Repository Directory Structure](#3-repository-directory-structure)
 4. [Simulating the Good Mux Design](#4-simulating-the-good-mux-design)
 5. [Viewing Verilog Files](#5-viewing-verilog-files)
-6. [Introduction to Yosys](#6-introduction-to-yosys)
+6. [Introduction to Yosys and Synthesis](#6-introduction-to-yosys-and-synthesis)
 7. [Introduction to Logic Synthesis](#7-introduction-to-logic-synthesis)
 8. [Yosys Lab: Good Mux](#8-yosys-lab-good-mux)
 
@@ -24,25 +24,45 @@ git clone https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop.git
 cd sky130RTLDesignAndSynthesisWorkshop
 ```
 
-## 2. Introduction to Icarus Verilog
+## 2. Introduction to RTL Design, Testbench and Simulation
 
-Icarus Verilog (`iverilog`) is used to simulate Verilog designs and verify their behavior with a testbench.
+### RTL Design
 
-The simulation flow covered in this session includes:
+RTL stands for **Register Transfer Level**. RTL design describes the behavior and data flow of a digital circuit using a hardware description language such as Verilog. It specifies how data is processed and transferred between registers and logic elements.
 
-- Verilog design files
-- Testbench files
-- Icarus Verilog compilation and simulation
-- VCD waveform generation
-- GTKWave waveform visualization
+The Verilog design is the description of the hardware we want to implement. For example, a multiplexer selects one of several inputs based on its select signal.
+
+### Testbench
+
+A testbench is a Verilog module used to test a design. It provides input signals to the design, observes its outputs, and helps verify whether the circuit behaves as expected. A testbench is used for simulation and is generally not part of the final hardware implementation.
+
+### Simulator
+
+A simulator executes the Verilog design and testbench over simulated time. It allows us to check the circuit's behavior before proceeding to synthesis or hardware implementation.
+
+**Icarus Verilog (`iverilog`)** is an open-source Verilog simulator. It compiles the design and testbench into an executable that can be run to perform the simulation.
+
+### VCD and GTKWave
+
+A VCD (Value Change Dump) file records changes in signals during simulation when waveform dumping is enabled in the testbench.
+
+**GTKWave** is a waveform viewer that opens VCD files and displays signal transitions over time. This helps examine inputs, outputs, and timing relationships.
+
+The basic simulation flow is:
+
+1. Write the Verilog design.
+2. Create a testbench.
+3. Compile and run the simulation using Icarus Verilog.
+4. Generate a VCD file.
+5. View the signal waveforms in GTKWave.
 
 ## 3. Repository Directory Structure
 
 The workshop repository contains files organized by their purpose.
 
-- **`lib/`** – SKY130 standard-cell libraries.
-- **Verilog models** – Verilog models of standard cells.
-- **Verilog source files** – Design files and testbench files used for simulation and synthesis.
+- **`lib/`** – SKY130 standard-cell library files.
+- **Verilog models** – Verilog models representing standard cells.
+- **Verilog source files** – Design modules and testbench files used for simulation and synthesis.
 
 To locate the relevant files:
 
@@ -52,7 +72,7 @@ find . -name "tb_good_mux.v"
 find . -name "*.lib"
 ```
 
-## 4. Simulating the Good Mux Design
+## 4. Simulating the "good mux" Design
 
 Navigate to the directory containing `good_mux.v` and `tb_good_mux.v`.
 
@@ -62,7 +82,7 @@ Navigate to the directory containing `good_mux.v` and `tb_good_mux.v`.
 iverilog good_mux.v tb_good_mux.v
 ```
 
-This compiles the Verilog files and generates the default output executable, `a.out`.
+This compiles the Verilog files and generates the default executable, `a.out`, if compilation succeeds.
 
 ### Step 2: Run the simulation
 
@@ -70,14 +90,14 @@ This compiles the Verilog files and generates the default output executable, `a.
 ./a.out
 ```
 
-The simulation generates a VCD waveform file when the testbench is configured to dump waveform data.
+If waveform dumping is configured in the testbench, the simulation generates a VCD file.
 
 ### Step 3: Open the waveform
 
 ```bash
 gtkwave tb_good_mux.vcd
 ```
-<img width="1917" height="1025" alt="Screenshot 2026-10-30 151013" src="https://github.com/user-attachments/assets/0ea938bf-eb57-4abe-a5e8-7a8af4438be3" />
+<img width="1917" height="1025" alt="Screenshot 2026-10-30 151013" src="https://github.com/user-attachments/assets/ec461a12-183b-46a9-8bb0-ab2f3354c7c4" />
 
 GTKWave displays the recorded signal waveforms for analysis.
 
@@ -88,32 +108,36 @@ Open the design and testbench side by side using GVim:
 ```bash
 gvim tb_good_mux.v -o good_mux.v
 ```
-<img width="1917" height="1007" alt="Screenshot 2026-10-30 151905" src="https://github.com/user-attachments/assets/7833935b-0a64-4b67-9e37-36676f552ef0" />
-
+<img width="1917" height="1007" alt="Screenshot 2026-10-30 151905" src="https://github.com/user-attachments/assets/6adb5755-1f6e-4390-b798-f7bf7dfc4a52" />
 
 This helps compare the design module with its testbench.
 
-## 6. Introduction to Yosys
+## 6. Introduction to Yosys and Synthesis
 
-Yosys is a digital logic synthesis tool. It processes Verilog design descriptions and converts them into a synthesized hardware representation.
+### What is Synthesis?
+
+Synthesis is the process of converting a hardware description, such as RTL written in Verilog, into a representation of hardware built from logic elements. The synthesis tool analyzes the design and maps its logic to cells available in a target technology library.
+
+### What is a Synthesizer?
+
+A synthesizer is a tool that performs logic synthesis. **Yosys** is an open-source synthesis tool that reads Verilog designs, processes their logic, and produces a synthesized netlist.
+
+### Simulator vs. Synthesizer
 
 Icarus Verilog and Yosys serve different purposes:
 
-- **Icarus Verilog:** Simulates a design to check its behavior.
-- **Yosys:** Synthesizes a design into a gate-level representation.
+- **Icarus Verilog:** Simulates the design to check its functional behavior.
+- **Yosys:** Synthesizes the design into a hardware representation, such as a gate-level netlist.
 
-A netlist represents the synthesized design using logic cells. The standard-cell library provides information about the available cells.
+A **netlist** describes a circuit in terms of cells and their connections. A standard-cell library, such as the SKY130 library, contains cell definitions and characteristics used during technology mapping.
 
 ## 7. Introduction to Logic Synthesis
 
-The Day 1 sessions introduce:
+The Day 1 workshop introduces the fundamentals of logic synthesis in two sessions:
 
-- Logic synthesis – Part 1
-- Logic synthesis – Part 2
+These sessions provide background for the practical Yosys synthesis lab.
 
-These sessions lead into the practical Yosys synthesis lab.
-
-## 8. Yosys Lab: Good Mux
+## 8. Yosys Lab: "good mux" design
 
 Start Yosys in the terminal from the directory containing the design and the relevant library path:
 
@@ -121,13 +145,15 @@ Start Yosys in the terminal from the directory containing the design and the rel
 yosys
 ```
 
+Run the following commands in the Yosys prompt.
+
 ### Step 1: Read the standard-cell library
 
 ```tcl
 read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025c_1v80.lib
 ```
 
-This loads the SKY130 high-density standard-cell library for synthesis.
+This loads the SKY130 high-density standard-cell library for use during synthesis.
 
 ### Step 2: Read the Verilog design
 
@@ -135,27 +161,29 @@ This loads the SKY130 high-density standard-cell library for synthesis.
 read_verilog good_mux.v
 ```
 
-This loads the Good Mux design into Yosys.
+This loads the good Mux design into Yosys.
 
 ### Step 3: Run synthesis
 
 ```tcl
 synth -top good_mux
 ```
-
-
 ```tcl
 abc -liberty ../lib/sky130_fd_sc_hd__tt_025c_1v80.lib
 ```
----
+This tells which model to simulate, optimizes and creates the netlist of the file.
 
-<img width="1915" height="965" alt="Screenshot 2026-10-30 171617" src="https://github.com/user-attachments/assets/fa8647d3-87c5-4b4e-b4a4-26dfb568b259" />
+```tcl
+show
+```
+This displays the graphical representation of synthesized design.
+
+<img width="1915" height="965" alt="Screenshot 2026-10-30 171617" src="https://github.com/user-attachments/assets/a5d192ad-2a17-4b87-93ab-2f2f355fcecf" />
 
 ## Tools Covered
 
-- Icarus Verilog (`iverilog`) – Verilog simulation
-- GTKWave – Waveform visualization
-- GVim – Verilog source viewing
-- Yosys – Logic synthesis
-- SKY130 standard-cell library – Cell definitions used in synthesis
-
+- **Icarus Verilog (`iverilog`)** – Verilog simulation
+- **GTKWave** – Waveform visualization
+- **GVim** – Viewing Verilog source files
+- **Yosys** – Logic synthesis
+- **SKY130 standard-cell library** – Standard-cell definitions and characteristics used in synthesis
