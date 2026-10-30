@@ -149,11 +149,15 @@ Run the following commands in the Yosys prompt.
 
 ### Step 1: Read the standard-cell library
 
+Liberty (.lib) files describe the characteristics of standard cells used in digital circuit design. They contain information such as cell functions, timing arcs, propagation delays, and power characteristics.
+
+During synthesis, tools such as Yosys can use these libraries for technology mapping, selecting suitable standard cells to implement the RTL logic.
+
 ```tcl
 read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025c_1v80.lib
 ```
 
-This loads the SKY130 high-density standard-cell library for use during synthesis.
+The -lib option reads the Liberty file as a library of cells for use during synthesis.
 
 ### Step 2: Read the Verilog design
 
@@ -161,7 +165,7 @@ This loads the SKY130 high-density standard-cell library for use during synthesi
 read_verilog good_mux.v
 ```
 
-This loads the good Mux design into Yosys.
+This loads the good mux design into Yosys.
 
 ### Step 3: Run synthesis
 
