@@ -177,8 +177,36 @@ This tells which model to simulate, optimizes and creates the netlist of the fil
 show
 ```
 This displays the graphical representation of synthesized design.
+<img width="1915" height="965" alt="Screenshot 2026-10-30 171617" src="https://github.com/user-attachments/assets/42156d7a-cbe8-4d73-9c9f-6120bb450967" />
 
-<img width="1915" height="965" alt="Screenshot 2026-10-30 171617" src="https://github.com/user-attachments/assets/a5d192ad-2a17-4b87-93ab-2f2f355fcecf" />
+
+### Step 4:  Exporting and Inspecting the Netlist
+
+```tcl
+write_verilog -noattr good_mux_netlist.v
+```
+This command generates a Verilog netlist representing the synthesized design.
+```tcl
+ !gvim good_mux_netlist.v 
+```
+Following command opens netlist in the GVim tool
+
+<img width="1896" height="956" alt="image" src="https://github.com/user-attachments/assets/48e51494-28b3-4611-8f46-68ce31285133" />
+
+To verify the outputs:
+1. Simulate the original RTL and synthesized netlist using the same testbench.
+2. Compare their output waveforms to verify functional consistency.
+
+## Summary of Learning Outcomes
+
+- Learned the fundamentals of RTL design, testbenches, and simulation.
+- Practiced compiling and running Verilog simulations using Icarus Verilog.
+- Explored signal waveforms with GTKWave.
+- Understood the role of Yosys in logic synthesis.
+- Learned how standard-cell libraries support technology mapping.
+- Synthesized a 2:1 multiplexer and generated its Verilog netlist.
+- Gained an introduction to process corners and timing characteristics.
+- Understood the importance of checking synthesized designs against the original RTL.   
 
 ## Tools Covered
 
