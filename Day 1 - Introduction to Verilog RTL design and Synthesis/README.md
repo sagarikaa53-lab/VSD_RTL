@@ -7,11 +7,11 @@ This repository documents the Day 1 activities of the VSD RTL Design and Synthes
 1. [Workshop Repository Setup](#1-workshop-repository-setup)
 2. [Introduction to RTL Design, Testbench and Simulation](#2-introduction-to-rtl-design-testbench-and-simulation)
 3. [Repository Directory Structure](#3-repository-directory-structure)
-4. [Simulating the Good Mux Design](#4-simulating-the-good-mux-design)
+4. [Simulating the good Mux Design](#4-simulating-the-good-mux-design)
 5. [Viewing Verilog Files](#5-viewing-verilog-files)
 6. [Introduction to Yosys and Synthesis](#6-introduction-to-yosys-and-synthesis)
 7. [Introduction to Logic Synthesis](#7-introduction-to-logic-synthesis)
-8. [Yosys Lab: Good Mux](#8-yosys-lab-good-mux)
+8. [Yosys Lab: good Mux](#8-yosys-lab-good-mux)
 
 ## 1. Workshop Repository Setup
 
