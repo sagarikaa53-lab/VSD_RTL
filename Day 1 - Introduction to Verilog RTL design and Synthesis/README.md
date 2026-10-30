@@ -1,4 +1,4 @@
-# VSD RTL Design and Synthesis – Day 1
+# Day 1 - Introduction to Verilog RTL design and Synthesis
 
 This repository documents the Day 1 activities of the VSD RTL Design and Synthesis Workshop, covering RTL design concepts, Verilog simulation, waveform analysis, and logic synthesis using Yosys and the SKY130 standard-cell library.
 
