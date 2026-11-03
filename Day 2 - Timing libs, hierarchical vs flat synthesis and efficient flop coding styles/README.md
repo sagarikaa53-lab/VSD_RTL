@@ -445,9 +445,11 @@ Repeat the flow with the appropriate filename and top-module name for the asynch
 
 <img width="1917" height="982" alt="image" src="https://github.com/user-attachments/assets/6b1e1979-5d76-4cd6-996a-cc8935b21840" />
 
+----------------------------
 
 <img width="1916" height="972" alt="image" src="https://github.com/user-attachments/assets/023e0730-fb49-4ae8-9774-1e14b868745d" />
 
+--------------------------------
 
 <img width="1917" height="945" alt="image" src="https://github.com/user-attachments/assets/c7b43798-8a27-4efe-b88e-32b755cbb982" />
 
@@ -489,6 +491,14 @@ endmodule
 
 To compare the arithmetic and concatenation forms, create separate modules or change the assignment and synthesize each version. Inspect the synthesized logic and compare the results.
 
+<img width="1911" height="937" alt="image" src="https://github.com/user-attachments/assets/883313c8-e034-4895-803d-54dd80665679" />
+
+-------------------------
+
+<img width="1536" height="902" alt="image" src="https://github.com/user-attachments/assets/3e844b29-da7a-43f8-a55f-300fe2f9681a" />
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
 ### 6.2 Multiplication by nine
 
 For an unsigned input a:
@@ -524,7 +534,14 @@ assign y = {a, a};
 endmodule
 ```
 
-Compare the synthesized implementations of the multiplication, shift-and-add and concatenation versions. Use the generated netlists and Yosys schematic view to observe the logic inferred by the tool.
+Comparing the synthesized implementations of the multiplication, shift-and-add and concatenation versions. Use the generated netlists and Yosys schematic view to observe the logic inferred by the tool.
+
+<img width="1822" height="921" alt="image" src="https://github.com/user-attachments/assets/0ca2f284-ecc0-441e-8163-84f1d6509c31" />
+
+
+----------------------
+
+<img width="1872" height="956" alt="image" src="https://github.com/user-attachments/assets/d0de614c-fc83-405a-a7c9-f065d19d356a" />
 
 
 
